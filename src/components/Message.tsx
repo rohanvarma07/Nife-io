@@ -31,20 +31,20 @@ const Message: React.FC<MessageProps> = ({ message }) => {
   const isUser = message.role === 'user';
 
   return (
-    <div className={`flex gap-4 p-4 ${!isUser ? 'bg-gray-50 dark:bg-gray-800/50' : ''}`}>
+    <div className={`flex gap-3 sm:gap-4 p-3 sm:p-4 ${!isUser ? 'bg-gray-50 dark:bg-gray-800/50' : ''}`}>
       {/* Avatar */}
-      <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+      <div className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${
         isUser 
           ? 'bg-blue-500 text-white' 
           : 'bg-green-500 text-white'
       }`}>
-        {isUser ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+        {isUser ? <User className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Bot className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
       </div>
 
       {/* Message Content */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
-          <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+          <span className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100">
             {isUser ? 'You' : 'Assistant'}
           </span>
           <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -55,9 +55,9 @@ const Message: React.FC<MessageProps> = ({ message }) => {
           )}
         </div>
         
-        <div className="prose prose-sm max-w-none dark:prose-invert">
+        <div className="prose prose-xs sm:prose-sm max-w-none dark:prose-invert">
           {isUser ? (
-            <p className="whitespace-pre-wrap text-gray-900 dark:text-gray-100">
+            <p className="whitespace-pre-wrap text-sm sm:text-base text-gray-900 dark:text-gray-100">
               {message.content}
             </p>
           ) : (
@@ -92,7 +92,7 @@ const Message: React.FC<MessageProps> = ({ message }) => {
         {/* Copy Button */}
         <button
           onClick={handleCopy}
-          className="mt-2 flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+          className="mt-2 flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors touch-manipulation"
         >
           {copied ? (
             <>

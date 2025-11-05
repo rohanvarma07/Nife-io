@@ -7,10 +7,14 @@
 @layer base {
   html {
     font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
   }
   
   body {
     @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+    overflow: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
   
   /* Custom scrollbar styles */
@@ -65,6 +69,25 @@
   
   .transition-colors-fast {
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+  }
+  
+  /* Touch improvements for mobile */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+  
+  /* Safe area adjustments for mobile devices */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Responsive text sizing */
+  .text-responsive {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
   }
 }
 

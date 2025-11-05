@@ -62,14 +62,15 @@ const Composer: React.FC<ComposerProps> = ({ onSendMessage, onStopStreaming }) =
   return (
     <div className="border-t dark:border-gray-700 bg-white dark:bg-gray-900">
       {/* Temperature Slider */}
-      <div className="px-6 py-2 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <Thermometer className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Temperature:</span>
+      <div className="px-3 sm:px-6 py-2 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <Thermometer className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500" />
+            <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 hidden sm:inline">Temperature:</span>
+            <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 sm:hidden">Temp:</span>
           </div>
-          <div className="flex items-center gap-3 flex-1 max-w-xs">
-            <span className="text-xs text-gray-500 w-8">0</span>
+          <div className="flex items-center gap-2 sm:gap-3 flex-1 max-w-xs">
+            <span className="text-xs text-gray-500 w-6 sm:w-8">0</span>
             <input
               type="range"
               min="0"
@@ -79,19 +80,19 @@ const Composer: React.FC<ComposerProps> = ({ onSendMessage, onStopStreaming }) =
               onChange={(e) => setTemperature(parseFloat(e.target.value))}
               className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
             />
-            <span className="text-xs text-gray-500 w-8">2</span>
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300 w-8">
+            <span className="text-xs text-gray-500 w-6 sm:w-8">2</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 w-6 sm:w-8">
               {temperature}
             </span>
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">
+          <div className="text-xs text-gray-500 dark:text-gray-400 hidden lg:block">
             Higher values = more creative, Lower values = more focused
           </div>
         </div>
       </div>
 
       {/* Input Area */}
-      <div className="p-6">
+      <div className="p-3 sm:p-6">
         <div className="relative">
           <textarea
             ref={textareaRef}
@@ -106,7 +107,7 @@ const Composer: React.FC<ComposerProps> = ({ onSendMessage, onStopStreaming }) =
                 : "Type your message... (Cmd/Ctrl+Enter to send)"
             }
             disabled={!activeThread || isStreaming}
-            className="w-full resize-none border dark:border-gray-600 rounded-lg px-4 py-3 pr-24 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full resize-none border dark:border-gray-600 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 pr-20 sm:pr-24 text-sm sm:text-base text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ minHeight: '44px' }}
           />
           
@@ -115,30 +116,30 @@ const Composer: React.FC<ComposerProps> = ({ onSendMessage, onStopStreaming }) =
             {isStreaming ? (
               <button
                 onClick={onStopStreaming}
-                className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
+                className="p-2 bg-red-500 hover:bg-red-600 active:bg-red-700 text-white rounded-lg transition-colors touch-manipulation"
                 title="Stop generation (Esc)"
               >
-                <Square className="w-4 h-4" />
+                <Square className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </button>
             ) : (
               <button
                 onClick={handleSend}
                 disabled={!canSend}
-                className={`p-2 rounded-lg transition-colors ${
+                className={`p-2 rounded-lg transition-colors touch-manipulation ${
                   canSend
-                    ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                    ? 'bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white'
                     : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                 }`}
                 title="Send message (Cmd/Ctrl+Enter)"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </button>
             )}
           </div>
         </div>
         
         {/* Keyboard Shortcuts Info */}
-        <div className="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center">
+        <div className="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center hidden sm:block">
           Press <kbd className="px-1 bg-gray-100 dark:bg-gray-800 rounded">⌘</kbd>
           <kbd className="px-1 bg-gray-100 dark:bg-gray-800 rounded ml-1">Enter</kbd> to send
           {isStreaming && (

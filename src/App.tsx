@@ -116,18 +116,18 @@ function App() {
   };
 
   return (
-    <div className="h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex">
+    <div className="min-h-screen h-screen max-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex">
       {/* Sidebar */}
       <div className={`${
         sidebarCollapsed 
           ? 'w-auto' 
-          : 'w-80 md:relative absolute inset-y-0 left-0 z-30'
-      } transition-all duration-300 ease-in-out`}>
+          : 'w-80 sm:w-72 lg:w-80 md:relative absolute inset-y-0 left-0 z-30'
+      } transition-all duration-300 ease-in-out h-full`}>
         <Sidebar />
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 h-full">
         <ChatWindow />
         <Composer
           onSendMessage={handleSendMessage}

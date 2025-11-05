@@ -74,10 +74,10 @@ const ThreadItem: React.FC<ThreadItemProps> = ({ thread, isActive, onSelect }) =
 
   return (
     <div
-      className={`group relative p-3 rounded-lg cursor-pointer transition-colors ${
+      className={`group relative p-2.5 sm:p-3 rounded-lg cursor-pointer transition-colors touch-manipulation ${
         isActive 
           ? 'bg-blue-50 dark:bg-blue-900/20 border-l-2 border-blue-500' 
-          : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+          : 'hover:bg-gray-50 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-700'
       }`}
       onClick={onSelect}
     >
@@ -97,11 +97,11 @@ const ThreadItem: React.FC<ThreadItemProps> = ({ thread, isActive, onSelect }) =
                 }
               }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full text-sm font-medium bg-white dark:bg-gray-700 border rounded px-2 py-1"
+              className="w-full text-xs sm:text-sm font-medium bg-white dark:bg-gray-700 border rounded px-2 py-1"
               autoFocus
             />
           ) : (
-            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
               {thread.title}
             </h3>
           )}
@@ -116,9 +116,9 @@ const ThreadItem: React.FC<ThreadItemProps> = ({ thread, isActive, onSelect }) =
               e.stopPropagation();
               setShowMenu(!showMenu);
             }}
-            className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-opacity"
+            className="opacity-0 group-hover:opacity-100 sm:opacity-100 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-opacity touch-manipulation"
           >
-            <MoreHorizontal className="w-4 h-4 text-gray-500" />
+            <MoreHorizontal className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500" />
           </button>
           
           {showMenu && (
@@ -127,30 +127,30 @@ const ThreadItem: React.FC<ThreadItemProps> = ({ thread, isActive, onSelect }) =
                 className="fixed inset-0 z-10"
                 onClick={() => setShowMenu(false)}
               />
-              <div className="absolute right-0 top-8 z-20 w-48 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-md shadow-lg">
+              <div className="absolute right-0 top-8 z-20 w-40 sm:w-48 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-md shadow-lg">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsRenaming(true);
                     setShowMenu(false);
                   }}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="flex items-center gap-2 w-full px-3 py-2.5 sm:py-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 touch-manipulation"
                 >
-                  <Edit2 className="w-4 h-4" />
+                  <Edit2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   Rename
                 </button>
                 <button
                   onClick={handleExport}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="flex items-center gap-2 w-full px-3 py-2.5 sm:py-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 touch-manipulation"
                 >
-                  <Download className="w-4 h-4" />
+                  <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   Export
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                  className="flex items-center gap-2 w-full px-3 py-2.5 sm:py-2 text-xs sm:text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 touch-manipulation"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   Delete
                 </button>
               </div>
@@ -221,47 +221,47 @@ const Sidebar: React.FC = () => {
   }
 
   return (
-    <div className="w-80 bg-gray-50 dark:bg-gray-900 border-r dark:border-gray-700 flex flex-col h-full">
+    <div className="w-80 sm:w-72 lg:w-80 bg-gray-50 dark:bg-gray-900 border-r dark:border-gray-700 flex flex-col h-full">
       {/* Header */}
-      <div className="p-4 border-b dark:border-gray-700">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+      <div className="p-3 sm:p-4 border-b dark:border-gray-700">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
+          <h1 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100">
             Chats
           </h1>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg"
+              className="p-1.5 sm:p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg touch-manipulation"
               title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
               {darkMode ? (
-                <Sun className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 dark:text-gray-400" />
               ) : (
-                <Moon className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 dark:text-gray-400" />
               )}
             </button>
             <button
               onClick={handleImport}
-              className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg"
+              className="p-1.5 sm:p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg touch-manipulation"
               title="Import Chat"
             >
-              <Upload className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+              <Upload className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 dark:text-gray-400" />
             </button>
             <button
               onClick={() => setSidebarCollapsed(true)}
-              className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg"
+              className="p-1.5 sm:p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg touch-manipulation"
             >
-              <PanelLeftClose className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+              <PanelLeftClose className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 dark:text-gray-400" />
             </button>
           </div>
         </div>
         
         <button
           onClick={() => createThread()}
-          className="w-full flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          className="w-full flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-2.5 sm:py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-lg transition-colors touch-manipulation"
         >
           <Plus className="w-4 h-4" />
-          New Chat
+          <span className="text-sm sm:text-base font-medium">New Chat</span>
         </button>
         
         <div className="relative mt-4">

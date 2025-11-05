@@ -71,14 +71,14 @@ const ChatWindow: React.FC = () => {
   return (
     <div className="flex-1 flex flex-col bg-white dark:bg-gray-900">
       {/* Header */}
-      <div className="border-b dark:border-gray-700 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <div className="border-b dark:border-gray-700 px-4 sm:px-6 py-3 sm:py-4">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
             {/* Mobile Menu Button */}
             {sidebarCollapsed && (
               <button
                 onClick={() => setSidebarCollapsed(false)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg md:hidden"
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg md:hidden touch-manipulation"
               >
                 <Menu className="w-5 h-5 text-gray-600 dark:text-gray-400" />
               </button>
@@ -86,7 +86,7 @@ const ChatWindow: React.FC = () => {
             
             {/* Title */}
             {isEditingTitle ? (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 sm:gap-2 min-w-0 flex-1">
                 <input
                   type="text"
                   value={newTitle}
@@ -96,25 +96,25 @@ const ChatWindow: React.FC = () => {
                     if (e.key === 'Enter') handleTitleEdit();
                     if (e.key === 'Escape') setIsEditingTitle(false);
                   }}
-                  className="text-lg font-semibold bg-white dark:bg-gray-800 border rounded px-2 py-1 min-w-0 flex-1"
+                  className="text-base sm:text-lg font-semibold bg-white dark:bg-gray-800 border rounded px-2 py-1 min-w-0 flex-1"
                   autoFocus
                 />
                 <button
                   onClick={handleTitleEdit}
-                  className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+                  className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded touch-manipulation"
                 >
                   <Check className="w-4 h-4 text-green-600" />
                 </button>
                 <button
                   onClick={() => setIsEditingTitle(false)}
-                  className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+                  className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded touch-manipulation"
                 >
                   <X className="w-4 h-4 text-red-600" />
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-2">
-                <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              <div className="flex items-center gap-1 sm:gap-2 min-w-0 flex-1 group">
+                <h1 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 truncate">
                   {activeThread.title}
                 </h1>
                 <button
@@ -122,23 +122,24 @@ const ChatWindow: React.FC = () => {
                     setNewTitle(activeThread.title);
                     setIsEditingTitle(true);
                   }}
-                  className="p-1 opacity-0 group-hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-opacity"
+                  className="p-1 opacity-0 group-hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-opacity touch-manipulation"
                 >
-                  <Edit2 className="w-4 h-4 text-gray-500" />
+                  <Edit2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500" />
                 </button>
               </div>
             )}
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             {/* Model Selector */}
             <div className="relative">
               <button
                 onClick={() => setShowModelSelector(!showModelSelector)}
-                className="flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-sm transition-colors"
+                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-xs sm:text-sm transition-colors touch-manipulation"
               >
-                <span className="text-gray-700 dark:text-gray-300">{selectedModel}</span>
-                <ChevronDown className="w-4 h-4 text-gray-500" />
+                <span className="text-gray-700 dark:text-gray-300 hidden sm:inline">{selectedModel}</span>
+                <span className="text-gray-700 dark:text-gray-300 sm:hidden">Model</span>
+                <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500" />
               </button>
               
               {showModelSelector && (
@@ -147,7 +148,7 @@ const ChatWindow: React.FC = () => {
                     className="fixed inset-0 z-10"
                     onClick={() => setShowModelSelector(false)}
                   />
-                  <div className="absolute right-0 top-10 z-20 w-48 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg shadow-lg">
+                  <div className="absolute right-0 top-10 z-20 w-40 sm:w-48 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg shadow-lg">
                     {models.map((model) => (
                       <button
                         key={model}
@@ -155,7 +156,7 @@ const ChatWindow: React.FC = () => {
                           setSelectedModel(model);
                           setShowModelSelector(false);
                         }}
-                        className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 first:rounded-t-lg last:rounded-b-lg ${
+                        className={`w-full text-left px-3 py-2.5 sm:py-2 text-xs sm:text-sm hover:bg-gray-100 dark:hover:bg-gray-700 first:rounded-t-lg last:rounded-b-lg touch-manipulation ${
                           model === selectedModel ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'
                         }`}
                       >
@@ -212,7 +213,7 @@ const ChatWindow: React.FC = () => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto overscroll-contain">
         {activeThread.messages.length === 0 ? (
           <div className="h-full flex items-center justify-center">
             <div className="text-center">
