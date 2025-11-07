@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown, Edit2, Check, X, Trash2, Settings, Menu } from 'lucide-react';
-import { useChatStore } from '../store/chatStore';
-import Message from './Message';
+import { useChatStore } from '../store/chatStore.js';
+import Message from './Message.jsx';
 
-const ChatWindow: React.FC = () => {
+const ChatWindow = () => {
   const {
     getActiveThread,
     isStreaming,
@@ -19,7 +19,7 @@ const ChatWindow: React.FC = () => {
   const [selectedModel, setSelectedModel] = useState('gpt-4-turbo');
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef(null);
   const activeThread = getActiveThread();
 
   const models = [

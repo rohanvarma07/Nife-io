@@ -1,16 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Send, Square, Thermometer } from 'lucide-react';
-import { useChatStore } from '../store/chatStore';
+import { useChatStore } from '../store/chatStore.js';
 
-interface ComposerProps {
-  onSendMessage: (content: string) => void;
-  onStopStreaming: () => void;
-}
-
-const Composer: React.FC<ComposerProps> = ({ onSendMessage, onStopStreaming }) => {
+const Composer = ({ onSendMessage, onStopStreaming }) => {
   const [message, setMessage] = useState('');
   const [temperature, setTemperature] = useState(0.7);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef(null);
   
   const { isStreaming, getActiveThread } = useChatStore();
   const activeThread = getActiveThread();
@@ -28,7 +23,7 @@ const Composer: React.FC<ComposerProps> = ({ onSendMessage, onStopStreaming }) =
 
   // Handle keyboard shortcuts
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
         e.preventDefault();
         handleSend();
@@ -50,7 +45,7 @@ const Composer: React.FC<ComposerProps> = ({ onSendMessage, onStopStreaming }) =
     setMessage('');
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();

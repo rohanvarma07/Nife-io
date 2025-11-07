@@ -1,18 +1,14 @@
-import type { MockResponder, MockResponseType, StreamingConfig } from '../types/chat';
-
-const DEFAULT_CONFIG: StreamingConfig = {
+const DEFAULT_CONFIG = {
   delay: 50, // milliseconds between chunks
   chunkSize: 3, // characters per chunk
 };
 
-export class MockStreamingResponder implements MockResponder {
-  private config: StreamingConfig;
-
-  constructor(config: Partial<StreamingConfig> = {}) {
+export class MockStreamingResponder {
+  constructor(config = {}) {
     this.config = { ...DEFAULT_CONFIG, ...config };
   }
 
-  async *respond(message: string, type: MockResponseType = 'llm-style'): AsyncIterableIterator<string> {
+  async *respond(message, type = 'llm-style') {
     const response = this.generateResponse(message, type);
     
     for (let i = 0; i < response.length; i += this.config.chunkSize) {
@@ -26,7 +22,7 @@ export class MockStreamingResponder implements MockResponder {
     }
   }
 
-  private generateResponse(message: string, type: MockResponseType): string {
+  generateResponse(message, type) {
     switch (type) {
       case 'echo':
         return `You said: "${message}"`;
@@ -40,7 +36,7 @@ export class MockStreamingResponder implements MockResponder {
     }
   }
 
-  private generateLLMStyleResponse(message: string): string {
+  generateLLMStyleResponse(message) {
     const responses = [
       `That's an interesting question about "${message}". Let me break this down for you:
 
@@ -163,7 +159,7 @@ What specific aspect of this would you like to explore further?`
 }
 
 // Utility function to create a responder instance
-export const createMockResponder = (config?: Partial<StreamingConfig>): MockResponder => {
+export const createMockResponder = (config) => {
   return new MockStreamingResponder(config);
 };
 

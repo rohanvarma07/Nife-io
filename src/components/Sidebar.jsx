@@ -12,17 +12,10 @@ import {
   Moon,
   Sun,
 } from 'lucide-react';
-import { useChatStore } from '../store/chatStore';
-import { useDarkMode } from '../hooks/useDarkMode';
-import type { Thread } from '../types/chat';
+import { useChatStore } from '../store/chatStore.js';
+import { useDarkMode } from '../hooks/useDarkMode.js';
 
-interface ThreadItemProps {
-  thread: Thread;
-  isActive: boolean;
-  onSelect: () => void;
-}
-
-const ThreadItem: React.FC<ThreadItemProps> = ({ thread, isActive, onSelect }) => {
+const ThreadItem = ({ thread, isActive, onSelect }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [isRenaming, setIsRenaming] = useState(false);
   const [newTitle, setNewTitle] = useState(thread.title);
@@ -60,7 +53,7 @@ const ThreadItem: React.FC<ThreadItemProps> = ({ thread, isActive, onSelect }) =
     setShowMenu(false);
   };
 
-  const formatDate = (timestamp: number) => {
+  const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
@@ -162,7 +155,7 @@ const ThreadItem: React.FC<ThreadItemProps> = ({ thread, isActive, onSelect }) =
   );
 };
 
-const Sidebar: React.FC = () => {
+const Sidebar = () => {
   const {
     activeThreadId,
     sidebarCollapsed,
@@ -184,12 +177,12 @@ const Sidebar: React.FC = () => {
     input.type = 'file';
     input.accept = '.json';
     input.onchange = (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
+      const file = e.target.files?.[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
           try {
-            const content = e.target?.result as string;
+            const content = e.target?.result;
             importThread(content);
           } catch (error) {
             alert('Failed to import thread. Please check the file format.');

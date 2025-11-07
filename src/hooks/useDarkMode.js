@@ -21,5 +21,5 @@ export const useDarkMode = () => {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
-  return [darkMode, setDarkMode] as const;
+  return [darkMode, setDarkMode];
 };

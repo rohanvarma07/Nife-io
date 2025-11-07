@@ -1,10 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { ChatStore, Thread, Message } from '../types/chat';
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
-const createDefaultThread = (): Thread => ({
+const createDefaultThread = () => ({
   id: generateId(),
   title: 'New Chat',
   createdAt: Date.now(),
@@ -13,7 +12,7 @@ const createDefaultThread = (): Thread => ({
   messages: [],
 });
 
-export const useChatStore = create<ChatStore>()(
+export const useChatStore = create(
   persist(
     (set, get) => ({
       threads: [],
@@ -31,7 +30,7 @@ export const useChatStore = create<ChatStore>()(
         return newThread.id;
       },
 
-      deleteThread: (threadId: string) => {
+      deleteThread: (threadId) => {
         set((state) => {
           const newThreads = state.threads.filter(t => t.id !== threadId);
           const newActiveId = state.activeThreadId === threadId 
@@ -45,7 +44,7 @@ export const useChatStore = create<ChatStore>()(
         });
       },
 
-      renameThread: (threadId: string, title: string) => {
+      renameThread: (threadId, title) => {
         set((state) => ({
           threads: state.threads.map(thread =>
             thread.id === threadId
@@ -55,12 +54,12 @@ export const useChatStore = create<ChatStore>()(
         }));
       },
 
-      setActiveThread: (threadId: string) => {
+      setActiveThread: (threadId) => {
         set({ activeThreadId: threadId });
       },
 
-      addMessage: (message: Omit<Message, 'id' | 'timestamp'>) => {
-        const newMessage: Message = {
+      addMessage: (message) => {
+        const newMessage = {
           ...message,
           id: generateId(),
           timestamp: Date.now(),
@@ -92,7 +91,7 @@ export const useChatStore = create<ChatStore>()(
         });
       },
 
-      updateMessage: (messageId: string, updates: Partial<Message>) => {
+      updateMessage: (messageId, updates) => {
         set((state) => {
           const activeThread = state.threads.find(t => t.id === state.activeThreadId);
           if (!activeThread) return state;
@@ -132,27 +131,27 @@ export const useChatStore = create<ChatStore>()(
         });
       },
 
-      setSidebarCollapsed: (collapsed: boolean) => {
+      setSidebarCollapsed: (collapsed) => {
         set({ sidebarCollapsed: collapsed });
       },
 
-      setIsStreaming: (streaming: boolean) => {
+      setIsStreaming: (streaming) => {
         set({ isStreaming: streaming });
       },
 
-      setSearchQuery: (query: string) => {
+      setSearchQuery: (query) => {
         set({ searchQuery: query });
       },
 
-      exportThread: (threadId: string) => {
+      exportThread: (threadId) => {
         const thread = get().threads.find(t => t.id === threadId);
         if (!thread) throw new Error('Thread not found');
         return JSON.stringify(thread, null, 2);
       },
 
-      importThread: (jsonData: string) => {
+      importThread: (jsonData) => {
         try {
-          const thread: Thread = JSON.parse(jsonData);
+          const thread = JSON.parse(jsonData);
           // Generate new ID to avoid conflicts
           const importedThread = {
             ...thread,

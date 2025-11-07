@@ -2,13 +2,8 @@ import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import { Copy, Check, User, Bot } from 'lucide-react';
-import type { Message as MessageType } from '../types/chat';
 
-interface MessageProps {
-  message: MessageType;
-}
-
-const Message: React.FC<MessageProps> = ({ message }) => {
+const Message = ({ message }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -21,7 +16,7 @@ const Message: React.FC<MessageProps> = ({ message }) => {
     }
   };
 
-  const formatTime = (timestamp: number) => {
+  const formatTime = (timestamp) => {
     return new Date(timestamp).toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
@@ -92,7 +87,7 @@ const Message: React.FC<MessageProps> = ({ message }) => {
         {/* Copy Button */}
         <button
           onClick={handleCopy}
-          className="mt-2 flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors touch-manipulation"
+          className="mt-2 flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
         >
           {copied ? (
             <>

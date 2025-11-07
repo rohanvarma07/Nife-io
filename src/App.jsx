@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { useChatStore } from './store/chatStore';
-import { defaultResponder } from './utils/mockResponder';
-import Sidebar from './components/Sidebar';
-import ChatWindow from './components/ChatWindow';
-import Composer from './components/Composer';
+import { useChatStore } from './store/chatStore.js';
+import { defaultResponder } from './utils/mockResponder.js';
+import Sidebar from './components/Sidebar.jsx';
+import ChatWindow from './components/ChatWindow.jsx';
+import Composer from './components/Composer.jsx';
 
 function App() {
   const {
@@ -16,7 +16,7 @@ function App() {
     setSidebarCollapsed,
   } = useChatStore();
 
-  const streamingController = useRef<AbortController | null>(null);
+  const streamingController = useRef(null);
 
   // Create initial thread if none exists
   useEffect(() => {
@@ -39,7 +39,7 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, [setSidebarCollapsed]);
 
-  const handleSendMessage = async (content: string) => {
+  const handleSendMessage = async (content) => {
     const activeThread = getActiveThread();
     if (!activeThread) return;
 
@@ -65,7 +65,7 @@ function App() {
     
     // Get the ID of the just-added message
     const activeThreadAfter = getActiveThread();
-    if (activeThreadAfter && activeThreadAfter.messages.length > activeThreadBefore!.messages.length) {
+    if (activeThreadAfter && activeThreadAfter.messages.length > activeThreadBefore.messages.length) {
       assistantMessageId = activeThreadAfter.messages[activeThreadAfter.messages.length - 1].id;
     }
 
